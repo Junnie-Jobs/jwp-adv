@@ -1,7 +1,8 @@
 package next.web;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +47,8 @@ public class BoardWebIntegrationTest extends WebIntegrationTest {
 		Board board = new Board("name");
 		ResponseEntity<Board> responseEntity = template.postForEntity(baseUrl() + "/boards", board, Board.class);
 		assertThat(responseEntity.getStatusCode(), is(HttpStatus.CREATED));
-		LOGGER.debug("create board : {}", responseEntity.getBody());
+		HttpHeaders headers = responseEntity.getHeaders();
+		LOGGER.debug("location headers : {}", headers.getLocation());
 	}
 	
 	@Test
