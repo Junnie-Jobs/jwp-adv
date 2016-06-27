@@ -13,7 +13,7 @@ import next.domain.BoardRepository;
 
 @RestController
 @RequestMapping("/boards")
-public class ApiBoardController {
+public class BoardController {
 	@Autowired
 	private BoardRepository boardRepository;
 	
