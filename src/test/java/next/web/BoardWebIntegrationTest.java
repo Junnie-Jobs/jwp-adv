@@ -21,8 +21,8 @@ import next.domain.Board;
 import next.domain.BoardRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class BoardApiTest extends WebIntegrationTest {
-	private static final Logger LOGGER = LoggerFactory.getLogger(BoardApiTest.class);
+public class BoardWebIntegrationTest extends WebIntegrationTest {
+	private static final Logger LOGGER = LoggerFactory.getLogger(BoardWebIntegrationTest.class);
 	
 	@Autowired
 	private BoardRepository boardRepository;

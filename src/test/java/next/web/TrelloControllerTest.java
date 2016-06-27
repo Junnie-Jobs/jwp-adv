@@ -12,8 +12,8 @@ import org.springframework.web.client.RestTemplate;
 import core.test.WebIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class HomeControllerTest extends WebIntegrationTest {
-	private static final Logger LOGGER = LoggerFactory.getLogger(HomeControllerTest.class);
+public class TrelloControllerTest extends WebIntegrationTest {
+	private static final Logger LOGGER = LoggerFactory.getLogger(TrelloControllerTest.class);
 	
 	private RestTemplate template;
 	
