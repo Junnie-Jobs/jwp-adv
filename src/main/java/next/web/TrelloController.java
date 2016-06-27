@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class TrelloController {
 	@RequestMapping("/")
     public String home() {
-        return "redirect:/boards/1";
+        return "index";
     }
 	
 	@RequestMapping("/boards")
