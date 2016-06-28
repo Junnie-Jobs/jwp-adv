@@ -6,11 +6,11 @@
     </head>
 
     <body>
-        <div id="header" class="z-depth-1">JWP-Trello</div>
+        <div th:replace="fragments/header :: header"></div>
 
         <div id="my_board">My Boards</div>
         <ul id="boards_list">
-          <li class="board project_1 waves-effect waves-light btn">First Project</li>
+          <li class="board project_1 waves-effect waves-light btn"><a href="/b/1">First Project</a></li>
              <div class="add_project not_sortable" >
                <a class="btn-floating btn-large waves-effect waves-light red add_project_btn">
                       <i class="material-icons">add</i>

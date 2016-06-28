@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(method = RequestMethod.GET)
 public class TrelloController {
 	@RequestMapping("/")
-    public String home() {
-        return "index";
-    }
-	
-	@RequestMapping("/boards")
     public String boards() {
         return "boards";
     }
 	
-	@RequestMapping("/boards/{id}")
+	@RequestMapping("/home")
+    public String home() {
+        return "home";
+    }
+	
+	@RequestMapping("/b/{id}")
     public String board(@PathVariable Long id) {
         return "board";
     }
