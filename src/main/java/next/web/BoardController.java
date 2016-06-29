@@ -25,14 +25,13 @@ public class BoardController {
 	private BoardRepository boardRepository;
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ResponseEntity<Void> create(@RequestBody Board board, UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<Board> create(@RequestBody Board board, UriComponentsBuilder ucBuilder) {
 		LOGGER.debug("board : {}", board);
 		
 		Board saved = boardRepository.save(board);
-		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("/boards/{id}").buildAndExpand(saved.getId()).toUri());
-		
-		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setLocation(ucBuilder.path("/boards/{id}").buildAndExpand(saved.getId()).toUri());
+		return new ResponseEntity<Board>(saved, HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

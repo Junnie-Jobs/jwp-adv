@@ -38,7 +38,7 @@ body{
     top: 0;
 }
 
-#header a{
+#header .modal-trigger{
     color: rgba(0,0,0,0.5);
     margin-top: 5px;
     font-size: 15px;

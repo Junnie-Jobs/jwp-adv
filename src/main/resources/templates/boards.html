@@ -12,7 +12,7 @@
         <ul id="boards_list">
           <ul th:each="board: ${boards}">
             <li class="board project_1 waves-effect waves-light btn">
-            	<a href="/b/1" th:text="${board.name}">First Project</a></li>
+            	<a th:href="|/b/${board.id}|" th:text="${board.name}">First Project</a></li>
           </ul>
              <div class="add_project not_sortable" >
                <a class="btn-floating btn-large waves-effect waves-light red add_project_btn">
