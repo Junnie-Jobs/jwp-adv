@@ -10,7 +10,10 @@
 
         <div id="my_board">My Boards</div>
         <ul id="boards_list">
-          <li class="board project_1 waves-effect waves-light btn"><a href="/b/1">First Project</a></li>
+          <ul th:each="board: ${boards}">
+            <li class="board project_1 waves-effect waves-light btn">
+            	<a href="/b/1" th:text="${board.name}">First Project</a></li>
+          </ul>
              <div class="add_project not_sortable" >
                <a class="btn-floating btn-large waves-effect waves-light red add_project_btn">
                       <i class="material-icons">add</i>
@@ -24,8 +27,7 @@
                     </div>
                   </form>
               </div>
-        </ul>
- 
+ 		  </ul>
       <script type="text/javascript" src="/lib/jquery-2.2.0.min.js"></script>
       <script type="text/javascript" src="/lib/materialize.min.js"></script>
       <script type="text/javascript" src="/js/index.js"></script>

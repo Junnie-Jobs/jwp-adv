@@ -29,10 +29,10 @@
        </div>
 
        <div id="board_canvas" class="list_sortable">
-          <div class="list_wrapper">
+          <div class="list_wrapper" th:each="deck : ${board.decks}">
             <div class="list_content z-depth-1">
                 <div class="list_header">
-                  <textarea class="list_header_name" value="First Todo">First Todo</textarea>
+                  <textarea class="list_header_name" th:text="${deck.name}">First Todo</textarea>
                 </div>
 
                 <div class="list_cards">
