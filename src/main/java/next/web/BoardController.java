@@ -1,5 +1,7 @@
 package next.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,13 +19,16 @@ import next.domain.BoardRepository;
 @RestController
 @RequestMapping("/boards")
 public class BoardController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(BoardController.class);
+	
 	@Autowired
 	private BoardRepository boardRepository;
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseEntity<Void> create(@RequestBody Board board, UriComponentsBuilder ucBuilder) {
-		Board saved = boardRepository.save(board);
+		LOGGER.debug("board : {}", board);
 		
+		Board saved = boardRepository.save(board);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/boards/{id}").buildAndExpand(saved.getId()).toUri());
 		

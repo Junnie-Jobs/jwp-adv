@@ -11,8 +11,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import lombok.Data;
+
 @Entity
+@Data
 public class Deck {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -23,4 +27,14 @@ public class Deck {
 	
 	@OneToMany(mappedBy = "deck")
 	private List<Card> cards;
+
+	private String name;
+	
+	public Deck() {
+	}
+	
+	public Deck(Board board, String name) {
+		this.board = board;
+		this.name = name;
+	}
 }
