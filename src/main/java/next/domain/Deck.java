@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Entity
@@ -25,6 +27,7 @@ public class Deck {
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_board_id"))
 	private Board board;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "deck")
 	private List<Card> cards;
 

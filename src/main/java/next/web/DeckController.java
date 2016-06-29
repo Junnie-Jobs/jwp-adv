@@ -32,4 +32,13 @@ public class DeckController {
 		deckRepository.save(new Deck(board, name));
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Deck> show(@PathVariable Long id) {
+		Deck deck = deckRepository.findOne(id);
+		if (deck == null) {
+			return new ResponseEntity<Deck>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Deck>(deck, HttpStatus.OK);
+	}
 }

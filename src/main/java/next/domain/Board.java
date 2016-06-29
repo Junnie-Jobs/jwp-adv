@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Entity
@@ -21,7 +23,7 @@ public class Board {
 	@Column(nullable = false)
 	private String name;
 	
-	
+	@JsonIgnore	
 	@OneToMany(mappedBy = "board")
 	private List<Deck> decks;
 	
