@@ -26,6 +26,7 @@ public class Application {
 			deckRepository.save(new Deck(board1, "my first list3"));
 			Board board2= boardRepository.save(new Board("my second board"));
 			deckRepository.save(new Deck(board2, "my second list1"));
+			deckRepository.save(new Deck(board2, "my second list2"));
 		};
 	}
 }
