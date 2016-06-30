@@ -4,9 +4,9 @@
       <!--Import Google Icon Font-->
       <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection"/>
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <link type="text/css" rel="stylesheet" href="css/signUp.css">    
+      <link type="text/css" rel="stylesheet" href="/css/signUp.css">    
 
   <style>
     #header{
@@ -66,40 +66,40 @@ margin-bottom: 10px;
     </head>
 
     <body>
-		<div th:replace="fragments/header :: header"></div>
+      <div th:replace="fragments/header :: header"></div>
 
       <div class="login_form_wrapper">
 
           <div class="signUp_title">Create a Account</div>
 
+		  <form action="/users/signUp" method="post">
           <div class="row">
               <div class="input-field col s12">
-                <input id="user_name" type="text" class="validate">
+                <input id="user_name" type="text" name="name" class="validate">
                 <label for="user_name">Username</label>
               </div>
           </div>
 
           <div class="row">
               <div class="input-field col s12">
-                  <input id="email" type="email" class="validate">
+                  <input id="email" type="email" name="email" class="validate">
                   <label for="email">Email</label>
                 </div>
               </div>
 
          <div class="row">
               <div class="input-field col s12">
-                <input id="password" type="password" class="validate">
+                <input id="password" type="password" name="rawPassword" class="validate">
                 <label for="password">Password</label>
               </div>
          </div>
             <div class="btn_area">
-               <div class="signUp_btn z-depth-1">SignUp</div>
+            	<input type="submit" class="signUp_btn z-depth-1" value="SignUp" />
             </div>
          </div>
-
-      <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-      <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-      <script src="lib/handlebars-v4.0.5.js"></script>
-      <script type="text/javascript" src="lib/materialize.min.js"></script>
+         </form>
+		
+		<div th:replace="fragments/footer :: footer"></div>
+        <script src="/lib/handlebars-v4.0.5.js"></script>
     </body>
   </html>
