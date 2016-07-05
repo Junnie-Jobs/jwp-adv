@@ -36,6 +36,11 @@
                 </div>
 
                 <div class="list_cards">
+                	<div class="list_card" th:each="card : ${deck.cards}">
+						<div class="list_card_detail">
+							<a class="list_card_title modal-trigger modalLink" dir="auto" href="#modalLayer" th:text="${card.title}">Card Title</a>
+						</div>                	
+                	</div>
                 </div>
 
                  <div class="card_composer">

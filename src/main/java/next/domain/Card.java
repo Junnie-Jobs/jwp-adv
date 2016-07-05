@@ -31,7 +31,9 @@ public class Card {
 	Card() {
 	}
 
-	public Card(String title, String description) {
+	public Card(Deck deck, String title, String description) {
+		this.deck = deck;
+		deck.addCard(this);
 		this.title = title;
 		this.description = description;
 	}

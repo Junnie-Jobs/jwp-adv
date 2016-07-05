@@ -28,10 +28,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //	            .antMatchers("/js/**", "/css/**", "/lib/**", "/font/**", "/fonts/**", "/h2-console/**").permitAll()
 //	        	.antMatchers("/users/signUp**", "/users/login").permitAll()
 //	            .anyRequest().authenticated()
-	            
-            	.antMatchers("/").access("hasRole('ROLE_USER')")
-            	.antMatchers("/b/**").access("hasRole('ROLE_USER')")
-            	.antMatchers("/boards/**").access("hasRole('ROLE_USER')")
+
+//            	.antMatchers("/").access("hasRole('ROLE_USER')")
+//            	.antMatchers("/b/**").access("hasRole('ROLE_USER')")
+//            	.antMatchers("/boards/**").access("hasRole('ROLE_USER')")
                 .anyRequest().permitAll()
                 .and()
             .formLogin()

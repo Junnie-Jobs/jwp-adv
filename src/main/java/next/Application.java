@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 
 import next.domain.Board;
 import next.domain.BoardRepository;
+import next.domain.Card;
+import next.domain.CardRepository;
 import next.domain.Deck;
 import next.domain.DeckRepository;
 
@@ -18,10 +20,16 @@ public class Application {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(BoardRepository boardRepository, DeckRepository deckRepository) {
+	public CommandLineRunner demo(
+			BoardRepository boardRepository, 
+			DeckRepository deckRepository,
+			CardRepository cardRepository) {
 		return (args) -> {
 			Board board1 = boardRepository.save(new Board("my first board"));
-			deckRepository.save(new Deck(board1, "my first list1"));
+			Deck deck1 = new Deck(board1, "my first list1");
+			deckRepository.save(deck1);
+			cardRepository.save(new Card(deck1, "card title1", "card description"));
+			cardRepository.save(new Card(deck1, "card title2", "card description"));
 			deckRepository.save(new Deck(board1, "my first list2"));
 			deckRepository.save(new Deck(board1, "my first list3"));
 			Board board2= boardRepository.save(new Board("my second board"));

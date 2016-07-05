@@ -1,5 +1,6 @@
 package next.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -29,7 +30,7 @@ public class Deck {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "deck")
-	private List<Card> cards;
+	private List<Card> cards = new ArrayList<>();
 
 	private String name;
 	
@@ -39,5 +40,9 @@ public class Deck {
 	public Deck(Board board, String name) {
 		this.board = board;
 		this.name = name;
+	}
+	
+	public void addCard(Card card) {
+		cards.add(card);
 	}
 }
