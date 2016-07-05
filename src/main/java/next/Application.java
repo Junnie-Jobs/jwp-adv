@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import next.domain.Board;
 import next.domain.BoardRepository;
@@ -12,6 +13,8 @@ import next.domain.Card;
 import next.domain.CardRepository;
 import next.domain.Deck;
 import next.domain.DeckRepository;
+import next.domain.User;
+import next.domain.UserRepository;
 
 @SpringBootApplication(exclude = ThymeleafAutoConfiguration.class)
 public class Application {
@@ -21,18 +24,22 @@ public class Application {
 	
 	@Bean
 	public CommandLineRunner demo(
+			UserRepository userRepository,
 			BoardRepository boardRepository, 
 			DeckRepository deckRepository,
-			CardRepository cardRepository) {
+			CardRepository cardRepository,
+			PasswordEncoder passwordEncoder) {
 		return (args) -> {
-			Board board1 = boardRepository.save(new Board("my first board"));
+			User user = new User("user", "javajigi@srello.xyz", passwordEncoder.encode("password"));
+			userRepository.save(user);
+			Board board1 = boardRepository.save(new Board(user, "my first board"));
 			Deck deck1 = new Deck(board1, "my first list1");
 			deckRepository.save(deck1);
 			cardRepository.save(new Card(deck1, "card title1", "card description"));
 			cardRepository.save(new Card(deck1, "card title2", "card description"));
 			deckRepository.save(new Deck(board1, "my first list2"));
 			deckRepository.save(new Deck(board1, "my first list3"));
-			Board board2= boardRepository.save(new Board("my second board"));
+			Board board2= boardRepository.save(new Board(user, "my second board"));
 			deckRepository.save(new Deck(board2, "my second list1"));
 			deckRepository.save(new Deck(board2, "my second list2"));
 		};

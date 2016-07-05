@@ -2,7 +2,9 @@ package next.web;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+
+import java.util.Collections;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,9 +20,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import core.security.BasicAuthInterceptor;
 import core.test.WebIntegrationTest;
 import next.domain.Board;
 import next.domain.BoardRepository;
+import next.domain.User;
+import next.domain.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class BoardWebIntegrationTest extends WebIntegrationTest {
@@ -28,23 +33,31 @@ public class BoardWebIntegrationTest extends WebIntegrationTest {
 	
 	@Autowired
 	private BoardRepository boardRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
 	private RestTemplate template;
+	
+	private User creator;
 	
 	@Before
 	public void setup() {
+		creator = userRepository.findByName("user");
 		template = new RestTemplate();
+		template.setInterceptors(Collections.singletonList(new BasicAuthInterceptor(creator.getName(), "password")));
 	}
 	
 	@Test
 	public void createObject() throws Exception {
-		Board board = new Board("name");
+		Board board = new Board(creator, "name");
 		Board actual = template.postForObject(baseUrl() + "/boards", board, Board.class);
 		LOGGER.debug("create board : {}", actual);
 	}
 	
 	@Test
 	public void createEntity() throws Exception {
-		Board board = new Board("name");
+		Board board = new Board(creator, "name");
 		ResponseEntity<Board> responseEntity = template.postForEntity(baseUrl() + "/boards", board, Board.class);
 		assertThat(responseEntity.getStatusCode(), is(HttpStatus.CREATED));
 		HttpHeaders headers = responseEntity.getHeaders();
@@ -53,7 +66,7 @@ public class BoardWebIntegrationTest extends WebIntegrationTest {
 	
 	@Test
 	public void delete() throws Exception {
-		Board board = boardRepository.save(new Board("deleteBoard"));
+		Board board = boardRepository.save(new Board(creator, "deleteBoard"));
 		template.delete(baseUrl() + "/boards/" + board.getId());
 		assertThat(boardRepository.findOne(board.getId()), is(nullValue()));
 	}
@@ -66,7 +79,7 @@ public class BoardWebIntegrationTest extends WebIntegrationTest {
 	
 	@Test
 	public void deleteExchange() throws Exception {
-		Board board = boardRepository.save(new Board("deleteBoard"));
+		Board board = boardRepository.save(new Board(creator, "deleteBoard"));
 		String noContentUrl = baseUrl() + "/boards/" + board.getId();
 		ResponseEntity<Board> responseEntity = template.exchange(noContentUrl, HttpMethod.DELETE, null, Board.class);
 		assertThat(responseEntity.getStatusCode(), is(HttpStatus.NO_CONTENT));

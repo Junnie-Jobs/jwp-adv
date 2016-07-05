@@ -4,9 +4,12 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,6 +26,10 @@ public class Board {
 	@Column(nullable = false)
 	private String name;
 	
+	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "fk_creator_id"))
+	private User creator;
+	
 	@JsonIgnore	
 	@OneToMany(mappedBy = "board")
 	private List<Deck> decks;
@@ -30,7 +37,8 @@ public class Board {
 	public Board() {
 	}
 	
-	public Board(String name) {
+	public Board(User user, String name) {
+		this.creator = user;
 		this.name = name;
 	}
 }
