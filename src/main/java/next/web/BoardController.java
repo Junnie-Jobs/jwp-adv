@@ -3,9 +3,9 @@ package next.web;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +25,7 @@ public class BoardController {
 	private BoardRepository boardRepository;
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ResponseEntity<Board> create(@RequestBody Board board, UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<Board> create(@AuthenticationPrincipal @RequestBody Board board, UriComponentsBuilder ucBuilder) {
 		LOGGER.debug("board : {}", board);
 		
 		Board saved = boardRepository.save(board);
