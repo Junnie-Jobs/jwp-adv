@@ -4,7 +4,8 @@
   </head>
   <body>
   	<div id="header" class="z-depth-1" th:fragment="header">
-  			<span><a href="/">JWP-Trello</a><span>
+  		<span><a href="/">JWP-Trello</a><span>
+  		<span th:text="${#authentication.name}">javajigi</span>
   	</div>
   </body>
 </html>

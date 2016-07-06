@@ -1,5 +1,11 @@
 package core.config;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +24,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.util.MimeType;
 import org.thymeleaf.dialect.IDialect;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.context.SpringContextUtils;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
-
-import javax.annotation.PostConstruct;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashMap;
 
 /**
  * {@link EnableAutoConfiguration Auto-configuration} for Thymeleaf3.
@@ -63,7 +65,7 @@ public class Thymeleaf3AutoConfiguration {
     }
 
     @Autowired(required = false)
-    private final Collection<IDialect> dialects = Collections.emptySet();
+    private final Collection<IDialect> dialects = Collections.singletonList(new SpringSecurityDialect());
 
     @Autowired
     private final Collection<ITemplateResolver> templateResolvers =
