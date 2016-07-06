@@ -26,7 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	
         http
             .authorizeRequests()
-            	.antMatchers(HttpMethod.GET, "/", "/b/**").authenticated()
+            	.antMatchers(HttpMethod.GET, "/b/**").authenticated()
             	.antMatchers("/boards/**").access("hasRole('ROLE_USER')")
                 .anyRequest().permitAll()
                 .and()

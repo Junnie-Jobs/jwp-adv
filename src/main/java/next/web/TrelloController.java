@@ -1,6 +1,10 @@
 package next.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,18 +16,20 @@ import next.domain.BoardRepository;
 @Controller
 @RequestMapping(method = RequestMethod.GET)
 public class TrelloController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(TrelloController.class);
+	
 	@Autowired
 	private BoardRepository boardRepository;
 	
 	@RequestMapping("/")
-    public String boards(Model model) {
+    public String boards(@AuthenticationPrincipal User user, Model model) {
+		LOGGER.debug("login user : {}", user);
+		if (user == null) {
+			return "home";
+		}
+		
 		model.addAttribute("boards", boardRepository.findAll());
         return "boards";
-    }
-	
-	@RequestMapping("/home")
-    public String home() {
-        return "home";
     }
 	
 	@RequestMapping("/b/{id}")
