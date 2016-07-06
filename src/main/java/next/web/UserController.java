@@ -35,7 +35,7 @@ public class UserController {
 		return "redirect:/users/login";
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/loginForm", method = RequestMethod.GET)
 	public String loginForm() {
 		return "login";
 	}

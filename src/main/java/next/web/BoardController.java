@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import next.domain.Board;
 import next.domain.BoardRepository;
@@ -25,12 +24,10 @@ public class BoardController {
 	private BoardRepository boardRepository;
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ResponseEntity<Board> create(@AuthenticationPrincipal @RequestBody Board board, UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<Board> create(@AuthenticationPrincipal @RequestBody Board board) {
 		LOGGER.debug("board : {}", board);
 		
 		Board saved = boardRepository.save(board);
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.setLocation(ucBuilder.path("/boards/{id}").buildAndExpand(saved.getId()).toUri());
 		return new ResponseEntity<Board>(saved, HttpStatus.CREATED);
 	}
 	
