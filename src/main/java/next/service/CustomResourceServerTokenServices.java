@@ -30,9 +30,6 @@ public class CustomResourceServerTokenServices implements ResourceServerTokenSer
 	@Autowired
 	private GitHubUserRepository githubUserRepository;
 	
-	private static final String[] PRINCIPAL_KEYS = new String[] { "user", "username",
-			"userid", "user_id", "login", "id", "name" };
-	
 	private final String userInfoEndpointUrl;
 
 	private final String clientId;
