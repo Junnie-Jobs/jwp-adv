@@ -28,7 +28,7 @@ public class CustomResourceServerTokenServices implements ResourceServerTokenSer
 	private static final Logger LOGGER = LoggerFactory.getLogger(CustomResourceServerTokenServices.class);
 	
 	@Autowired
-	private GitHubUserRepository facebookUserRepository;
+	private GitHubUserRepository githubUserRepository;
 	
 	private static final String[] PRINCIPAL_KEYS = new String[] { "user", "username",
 			"userid", "user_id", "login", "id", "name" };
@@ -50,43 +50,33 @@ public class CustomResourceServerTokenServices implements ResourceServerTokenSer
 	public OAuth2Authentication loadAuthentication(String accessToken)
 			throws AuthenticationException, InvalidTokenException {
 		LOGGER.debug("access token : {}", accessToken);
-		GitHubUser githubUser = facebookUserRepository.findByAccessToken(accessToken);
-		if (githubUser == null) {
-			Map<String, Object> map = getMap(this.userInfoEndpointUrl, accessToken);
-			LOGGER.debug("UserInfo : {}", map);
-			if (map.containsKey("error")) {
-				LOGGER.debug("userinfo returned error: " + map.get("error"));
-				throw new InvalidTokenException(accessToken);
-			}
-			githubUser = new GitHubUser(map.get("name") + "", map.get("email") + "", accessToken);
-			facebookUserRepository.save(githubUser);
-			return extractAuthentication(map);
+		GitHubUser githubUser = githubUserRepository.findByAccessToken(accessToken);
+		if (githubUser != null) {
+			return extractAuthentication(githubUser);
 		}
 		
-		return null;
+		Map<String, Object> map = getMap(this.userInfoEndpointUrl, accessToken);
+		LOGGER.debug("UserInfo : {}", map);
+		if (map.containsKey("error")) {
+			LOGGER.debug("userinfo returned error: " + map.get("error"));
+			throw new InvalidTokenException(accessToken);
+		}
+		githubUser = new GitHubUser(map.get("login") + "", map.get("email") + "", map.get("name") + "", accessToken);
+		githubUserRepository.save(githubUser);
+		return extractAuthentication(githubUser);
 	}
 	
-	private OAuth2Authentication extractAuthentication(Map<String, Object> map) {
-		Object principal = getPrincipal(map);
+	private OAuth2Authentication extractAuthentication(GitHubUser githubUser) {
 		List<GrantedAuthority> authorities = AuthorityUtils
 				.commaSeparatedStringToAuthorityList("ROLE_USER");
 		OAuth2Request request = new OAuth2Request(null, this.clientId, null, true, null,
 				null, null, null, null);
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-				principal, "N/A", authorities);
-		token.setDetails(map);
+				githubUser.getUserId(), "N/A", authorities);
+		token.setDetails(githubUser);
 		return new OAuth2Authentication(request, token);
 	}
 	
-	private Object getPrincipal(Map<String, Object> map) {
-		for (String key : PRINCIPAL_KEYS) {
-			if (map.containsKey(key)) {
-				return map.get(key);
-			}
-		}
-		return "unknown";
-	}
-
 	@SuppressWarnings({ "unchecked" })
 	private Map<String, Object> getMap(String path, String accessToken) {
 		try {

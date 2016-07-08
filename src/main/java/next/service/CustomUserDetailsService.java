@@ -30,14 +30,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 		LOGGER.debug("load username : {}", username);
-		next.domain.user.SrelloUser user = userRepository.findByName(username);
+		next.domain.user.SrelloUser user = userRepository.findByUserId(username);
 		LOGGER.debug("loaded User : {}", user);
 		List<GrantedAuthority> authorities = buildUserAuthority();
 		return buildUserForAuthentication(user, authorities);
 	}
 	
 	private User buildUserForAuthentication(next.domain.user.SrelloUser user, List<GrantedAuthority> authorities) {
-		return new User(user.getName(), user.getPassword(),
+		return new User(user.getUserId(), user.getPassword(),
 				true, true, true, true, authorities);
 	}
 	

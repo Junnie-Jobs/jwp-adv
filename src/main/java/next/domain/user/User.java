@@ -20,14 +20,14 @@ public abstract class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	private String name;
+	private String userId;
 	
 	private String email;
 	
 	public User() {}
 	
-	public User(String name, String email) {
-		this.name = name;
+	public User(String userId, String email) {
+		this.userId = userId;
 		this.email = email;
 	}
 }

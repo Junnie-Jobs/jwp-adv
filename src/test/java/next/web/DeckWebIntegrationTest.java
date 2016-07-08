@@ -40,9 +40,9 @@ public class DeckWebIntegrationTest extends WebIntegrationTest {
 	
 	@Before
 	public void setup() {
-		creator = userRepository.findByName("user");
+		creator = userRepository.findByUserId("user");
 		template = new RestTemplate();
-		template.setInterceptors(Collections.singletonList(new BasicAuthInterceptor(creator.getName(), "password")));
+		template.setInterceptors(Collections.singletonList(new BasicAuthInterceptor(creator.getUserId(), "password")));
 	}
 	
 	@Test

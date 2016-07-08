@@ -17,8 +17,8 @@ public class SrelloUser extends User {
 	public SrelloUser() {
 	}
 	
-	public SrelloUser(String name, String email, String password) {
-		super(name, email);
+	public SrelloUser(String userId, String email, String password) {
+		super(userId, email);
 		this.password = password;
 	}
 	
