@@ -1,7 +1,7 @@
 package next.domain.user;
 
 public enum UserType {
-	SRELLO(Values.SRELLO), FACEBOOK(Values.FACEBOOK);
+	SRELLO(Values.SRELLO), GITHUB(Values.GITHUB);
 
 	private String type;
 
@@ -15,6 +15,6 @@ public enum UserType {
 
 	public static class Values {
 		public static final String SRELLO = "S";
-		public static final String FACEBOOK = "F";
+		public static final String GITHUB = "G";
 	}
 }

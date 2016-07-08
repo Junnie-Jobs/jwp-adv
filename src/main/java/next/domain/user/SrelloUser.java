@@ -6,11 +6,8 @@ import javax.persistence.Transient;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import lombok.Data;
-
 @Entity
 @DiscriminatorValue(value = UserType.Values.SRELLO)
-@Data
 public class SrelloUser extends User {
 	private String password;
 	
@@ -23,6 +20,10 @@ public class SrelloUser extends User {
 	public SrelloUser(String name, String email, String password) {
 		super(name, email);
 		this.password = password;
+	}
+	
+	public String getPassword() {
+		return password;
 	}
 	
 	public void encodePassword(PasswordEncoder passwordEncoder) {

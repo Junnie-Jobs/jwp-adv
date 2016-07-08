@@ -2,7 +2,9 @@ package next.config;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,6 +15,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
+
+import next.service.CustomResourceServerTokenServices;
 
 @Configuration
 @EnableWebSecurity
@@ -21,6 +26,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Resource(name = "customUserDetailsService")
 	private UserDetailsService customUserDetailsService;
 	
+	@Autowired 
+	private ResourceServerProperties sso;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http.csrf().disable();
@@ -42,6 +50,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         
         http.httpBasic();
     }
+    
+    @Bean
+	public ResourceServerTokenServices userInfoTokenServices() {
+		return new CustomResourceServerTokenServices(sso.getUserInfoUri(), sso.getClientId());
+	}
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
