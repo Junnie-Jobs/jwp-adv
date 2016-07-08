@@ -16,12 +16,12 @@ import org.springframework.web.client.RestTemplate;
 
 import core.security.BasicAuthInterceptor;
 import core.test.WebIntegrationTest;
-import next.domain.Board;
-import next.domain.BoardRepository;
-import next.domain.Deck;
-import next.domain.DeckRepository;
-import next.domain.User;
-import next.domain.UserRepository;
+import next.domain.board.Board;
+import next.domain.board.BoardRepository;
+import next.domain.board.Deck;
+import next.domain.board.DeckRepository;
+import next.domain.user.SrelloUser;
+import next.domain.user.SrelloUserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class DeckWebIntegrationTest extends WebIntegrationTest {
@@ -32,11 +32,11 @@ public class DeckWebIntegrationTest extends WebIntegrationTest {
 	private DeckRepository deckRepository;
 	
 	@Autowired
-	private UserRepository userRepository;
+	private SrelloUserRepository userRepository;
 	
 	private RestTemplate template;
 	
-	private User creator;
+	private SrelloUser creator;
 	
 	@Before
 	public void setup() {

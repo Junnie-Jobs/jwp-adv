@@ -16,27 +16,27 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import next.domain.UserRepository;
+import next.domain.user.SrelloUserRepository;
 
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CustomUserDetailsService.class);
 	
 	@Autowired
-	private UserRepository userRepository;
+	private SrelloUserRepository userRepository;
 
 	@Transactional
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 		LOGGER.debug("load username : {}", username);
-		next.domain.User user = userRepository.findByName(username);
+		next.domain.user.SrelloUser user = userRepository.findByName(username);
 		LOGGER.debug("loaded User : {}", user);
 		List<GrantedAuthority> authorities = buildUserAuthority();
 		return buildUserForAuthentication(user, authorities);
 	}
 	
-	private User buildUserForAuthentication(next.domain.User user, List<GrantedAuthority> authorities) {
+	private User buildUserForAuthentication(next.domain.user.SrelloUser user, List<GrantedAuthority> authorities) {
 		return new User(user.getName(), user.getPassword(),
 				true, true, true, true, authorities);
 	}

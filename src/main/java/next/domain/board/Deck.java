@@ -1,8 +1,8 @@
-package next.domain;
+package next.domain.board;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -18,27 +18,33 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Board {
+public class Deck {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@Column(nullable = false)
+	@ManyToOne
+	@JoinColumn(
+			foreignKey = @ForeignKey(name = "fk_board_id"), 
+			nullable = false)
+	private Board board;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "deck")
+	private List<Card> cards = new ArrayList<>();
+
 	private String name;
 	
-	@ManyToOne
-	@JoinColumn(foreignKey = @ForeignKey(name = "fk_creator_id"))
-	private User creator;
-	
-	@JsonIgnore	
-	@OneToMany(mappedBy = "board")
-	private List<Deck> decks;
-	
-	public Board() {
+	public Deck() {
 	}
 	
-	public Board(User user, String name) {
-		this.creator = user;
+	public Deck(Board board, String name) {
+		this.board = board;
 		this.name = name;
+	}
+	
+	public void addCard(Card card) {
+		cards.add(card);
 	}
 }

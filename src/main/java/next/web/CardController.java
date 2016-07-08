@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import next.domain.Card;
-import next.domain.CardRepository;
+import next.domain.board.Card;
+import next.domain.board.CardRepository;
 
 @RestController
 public class CardController {

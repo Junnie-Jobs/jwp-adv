@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import next.domain.Board;
-import next.domain.BoardRepository;
-import next.domain.Deck;
-import next.domain.DeckRepository;
+import next.domain.board.Board;
+import next.domain.board.BoardRepository;
+import next.domain.board.Deck;
+import next.domain.board.DeckRepository;
 
 @RestController
 @RequestMapping("/boards/{boardId}/decks")

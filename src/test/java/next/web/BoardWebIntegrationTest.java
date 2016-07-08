@@ -22,10 +22,10 @@ import org.springframework.web.client.RestTemplate;
 
 import core.security.BasicAuthInterceptor;
 import core.test.WebIntegrationTest;
-import next.domain.Board;
-import next.domain.BoardRepository;
-import next.domain.User;
-import next.domain.UserRepository;
+import next.domain.board.Board;
+import next.domain.board.BoardRepository;
+import next.domain.user.SrelloUser;
+import next.domain.user.SrelloUserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class BoardWebIntegrationTest extends WebIntegrationTest {
@@ -35,11 +35,11 @@ public class BoardWebIntegrationTest extends WebIntegrationTest {
 	private BoardRepository boardRepository;
 	
 	@Autowired
-	private UserRepository userRepository;
+	private SrelloUserRepository userRepository;
 	
 	private RestTemplate template;
 	
-	private User creator;
+	private SrelloUser creator;
 	
 	@Before
 	public void setup() {

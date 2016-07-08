@@ -1,4 +1,4 @@
-package next.domain;
+package next.domain.board;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import next.domain.User;
-import next.domain.UserRepository;
+import next.domain.user.SrelloUser;
+import next.domain.user.SrelloUserRepository;
 
 @Controller
 @RequestMapping("/users")
@@ -17,7 +17,7 @@ public class UserController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired
-	private UserRepository userRepository;
+	private SrelloUserRepository userRepository;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -28,7 +28,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
-	public String signUp(User user) {
+	public String signUp(SrelloUser user) {
 		LOGGER.debug("user : {}", user);
 		user.encodePassword(passwordEncoder);
 		userRepository.save(user);

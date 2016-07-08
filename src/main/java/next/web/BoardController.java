@@ -5,15 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import next.domain.Board;
-import next.domain.BoardRepository;
+import next.domain.board.Board;
+import next.domain.board.BoardRepository;
 
 @RestController
 @RequestMapping("/boards")
@@ -24,7 +23,7 @@ public class BoardController {
 	private BoardRepository boardRepository;
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ResponseEntity<Board> create(@AuthenticationPrincipal @RequestBody Board board) {
+	public ResponseEntity<Board> create(@RequestBody Board board) {
 		LOGGER.debug("board : {}", board);
 		
 		Board saved = boardRepository.save(board);
