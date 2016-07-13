@@ -44,4 +44,8 @@ public class Board {
 		this.creator = user;
 		this.name = name;
 	}
+	
+	public void createdBy(User user) {
+		this.creator = user;
+	}
 }

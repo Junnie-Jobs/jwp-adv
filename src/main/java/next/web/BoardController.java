@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import core.web.argumentresolver.LoginUser;
 import next.domain.board.Board;
 import next.domain.board.BoardRepository;
+import next.domain.user.User;
 
 @RestController
 @RequestMapping("/boards")
@@ -23,9 +25,9 @@ public class BoardController {
 	private BoardRepository boardRepository;
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ResponseEntity<Board> create(@RequestBody Board board) {
+	public ResponseEntity<Board> create(@LoginUser User user, @RequestBody Board board) {
 		LOGGER.debug("board : {}", board);
-		
+		board.createdBy(user);
 		Board saved = boardRepository.save(board);
 		return new ResponseEntity<Board>(saved, HttpStatus.CREATED);
 	}

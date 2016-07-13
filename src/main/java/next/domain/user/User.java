@@ -16,6 +16,8 @@ import lombok.Data;
 @DiscriminatorColumn(name="USER_TYPE", discriminatorType=DiscriminatorType.STRING)    
 @Data
 public abstract class User {
+	public static final GuestUser GUEST_USER = new GuestUser();
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -29,5 +31,16 @@ public abstract class User {
 	public User(String userId, String email) {
 		this.userId = userId;
 		this.email = email;
+	}
+	
+	public boolean isGuestUser() {
+		return false;
+	}
+	
+	private static class GuestUser extends User {
+		@Override
+		public boolean isGuestUser() {
+			return true;
+		}
 	}
 }
