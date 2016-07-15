@@ -13,15 +13,15 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
-import next.Application;
+import core.test.RepositoryConfiguration;
 
 public class MySchemaExport {
 
 	public static void main(String[] args) {
-		AnnotationConfigApplicationContext acac = new AnnotationConfigApplicationContext(Application.class);
+		AnnotationConfigApplicationContext acac = new AnnotationConfigApplicationContext(RepositoryConfiguration.class);
 		LocalContainerEntityManagerFactoryBean lcemfb = acac.getBean(LocalContainerEntityManagerFactoryBean.class);
 		final Properties prop = new Properties();
-		prop.put(AvailableSettings.DIALECT, "org.hibernate.dialect.H2Dialect");
+		prop.put(AvailableSettings.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
 
 		final PersistenceUnitInfo info = lcemfb.getPersistenceUnitInfo();
 		final PersistenceUnitInfoDescriptor puid = new PersistenceUnitInfoDescriptor(info);
