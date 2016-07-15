@@ -37,14 +37,9 @@ create table Card (
 );
 
 alter table Board 
-    add constraint fk_creator_id 
+	add constraint fk_creator_id 
     foreign key (creator_id) 
     references User (id);
-    
-alter table Card 
-    add constraint fk_deck_id 
-    foreign key (deck_id) 
-    references Deck (id);
     
 alter table Card 
     add constraint fk_deck_id 
