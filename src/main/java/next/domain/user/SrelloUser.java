@@ -1,5 +1,6 @@
 package next.domain.user;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -9,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Entity
 @DiscriminatorValue(value = UserType.Values.SRELLO)
 public class SrelloUser extends User {
+	@Column(name = "password")
 	private String password;
 	
 	@Transient

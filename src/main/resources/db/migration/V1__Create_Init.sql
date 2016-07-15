@@ -7,8 +7,8 @@ create table user (
     USER_TYPE varchar(31) not null,
     id bigint not null auto_increment,
     email varchar(255),
-    userId varchar(255),
-    accessToken varchar(255),
+    user_id varchar(255),
+    access_token varchar(255),
     name varchar(255),
     password varchar(255),
     primary key (id)

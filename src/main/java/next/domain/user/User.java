@@ -1,5 +1,6 @@
 package next.domain.user;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
@@ -11,7 +12,7 @@ import javax.persistence.InheritanceType;
 
 import lombok.Data;
 
-@Entity
+@Entity(name = "user")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="USER_TYPE", discriminatorType=DiscriminatorType.STRING)    
 @Data
@@ -22,6 +23,7 @@ public abstract class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	@Column(name = "user_id")
 	private String userId;
 	
 	private String email;

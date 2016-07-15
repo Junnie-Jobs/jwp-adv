@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
-@Entity
+@Entity(name = "deck")
 @Data
 public class Deck {
 

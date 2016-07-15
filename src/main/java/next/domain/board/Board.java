@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import next.domain.user.User;
 
-@Entity
+@Entity(name = "board")
 @Data
 public class Board {
 	@Id
