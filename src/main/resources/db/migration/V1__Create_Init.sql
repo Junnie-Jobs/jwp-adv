@@ -1,7 +1,7 @@
-drop table Card;
-drop table Deck;
-drop table Board;
-drop table User;
+drop table if exists Card;
+drop table if exists Deck;
+drop table if exists Board;
+drop table if exists User;
 
 create table User (
     USER_TYPE varchar(31) not null,
