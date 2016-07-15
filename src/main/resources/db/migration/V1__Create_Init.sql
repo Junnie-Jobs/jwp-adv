@@ -1,9 +1,9 @@
-drop table if exists Card;
-drop table if exists Deck;
-drop table if exists Board;
-drop table if exists User;
+drop table if exists card;
+drop table if exists deck;
+drop table if exists board;
+drop table if exists user;
 
-create table User (
+create table user (
     USER_TYPE varchar(31) not null,
     id bigint not null auto_increment,
     email varchar(255),
@@ -14,21 +14,21 @@ create table User (
     primary key (id)
 );
 
-create table Board (
+create table board (
     id bigint not null auto_increment,
     name varchar(255) not null,
     creator_id bigint not null,
     primary key (id)
 );
 
-create table Deck (
+create table deck (
     id bigint not null auto_increment,
     name varchar(255),
     board_id bigint not null,
     primary key (id)
 );
 
-create table Card (
+create table card (
     id bigint not null auto_increment,
     description varchar(5000),
     title varchar(200),
@@ -36,12 +36,12 @@ create table Card (
     primary key (id)
 );
 
-alter table Board 
+alter table board 
 	add constraint fk_creator_id 
     foreign key (creator_id) 
-    references User (id);
+    references user (id);
     
-alter table Card 
+alter table card 
     add constraint fk_deck_id 
     foreign key (deck_id) 
-    references Deck (id);
+    references deck (id);
