@@ -35,8 +35,9 @@ repositories {
 }
 
 flyway {
-    url = 'jdbc:h2:mem:srello;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE'
-    user = 'sa'
+    url = 'jdbc:mysql://localhost/srello?autoReconnect=true&useUnicode=true&characterEncoding=utf8'
+    user = 'root'
+    password = 'password'
 }
 
 dependencies {
