@@ -1,15 +1,23 @@
+drop table Card;
+drop table Deck;
+drop table Board;
+drop table User;
+
+create table User (
+    USER_TYPE varchar(31) not null,
+    id bigint not null auto_increment,
+    email varchar(255),
+    userId varchar(255),
+    accessToken varchar(255),
+    name varchar(255),
+    password varchar(255),
+    primary key (id)
+);
+
 create table Board (
     id bigint not null auto_increment,
     name varchar(255) not null,
     creator_id bigint not null,
-    primary key (id)
-);
-
-create table Card (
-    id bigint not null auto_increment,
-    description varchar(5000),
-    title varchar(200),
-    deck_id bigint,
     primary key (id)
 );
 
@@ -20,14 +28,11 @@ create table Deck (
     primary key (id)
 );
 
-create table User (
-    USER_TYPE varchar(31) not null,
+create table Card (
     id bigint not null auto_increment,
-    email varchar(255),
-    userId varchar(255),
-    accessToken varchar(255),
-    name varchar(255),
-    password varchar(255),
+    description varchar(5000),
+    title varchar(200),
+    deck_id bigint,
     primary key (id)
 );
 
