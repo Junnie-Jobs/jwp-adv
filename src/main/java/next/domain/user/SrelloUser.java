@@ -7,8 +7,11 @@ import javax.persistence.Transient;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 @Entity
 @DiscriminatorValue(value = UserType.Values.SRELLO)
+@JsonTypeName(UserType.Values.SRELLO)
 public class SrelloUser extends User {
 	@Column
 	private String password;

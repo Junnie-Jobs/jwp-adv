@@ -10,12 +10,25 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import lombok.Data;
 
-@Entity(name = "user")
+@Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="USER_TYPE", discriminatorType=DiscriminatorType.STRING)    
 @Data
+@JsonTypeInfo(
+		use= JsonTypeInfo.Id.NAME,
+		include = JsonTypeInfo.As.PROPERTY,
+		property = "type"
+)
+@JsonSubTypes({
+	@Type(value = SrelloUser.class, name = UserType.Values.SRELLO),
+	@Type(value = GitHubUser.class, name = UserType.Values.GITHUB),
+})
 public abstract class User {
 	public static final GuestUser GUEST_USER = new GuestUser();
 	
