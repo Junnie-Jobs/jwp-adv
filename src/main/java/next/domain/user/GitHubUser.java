@@ -10,7 +10,7 @@ public class GitHubUser extends User {
 	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "access_token")
+	@Column
 	private String accessToken;
 
 	public GitHubUser() {

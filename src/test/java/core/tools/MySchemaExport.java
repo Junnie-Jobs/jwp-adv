@@ -1,40 +1,40 @@
 package core.tools;
 
-import java.util.Properties;
+import javax.persistence.Entity;
 
-import javax.persistence.spi.PersistenceUnitInfo;
-
-import org.hibernate.cfg.AvailableSettings;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl;
-import org.hibernate.jpa.boot.internal.PersistenceUnitInfoDescriptor;
-import org.hibernate.service.ServiceRegistry;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-
-import core.test.RepositoryConfiguration;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
+import org.springframework.core.type.filter.AnnotationTypeFilter;
 
 public class MySchemaExport {
+	public static org.hibernate.cfg.Configuration getConfiguration() {
+		org.hibernate.cfg.Configuration cfg = new org.hibernate.cfg.Configuration();
+		ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
+		scanner.addIncludeFilter(new AnnotationTypeFilter(Entity.class));
+		for (BeanDefinition bd : scanner.findCandidateComponents("next.domain")) {
+			String name = bd.getBeanClassName();
+			try {
+				cfg.addAnnotatedClass(Class.forName(name));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		cfg.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+		cfg.setProperty("hibernate.show_sql", "true");
+		cfg.setProperty("hibernate.format_sql", "true");
+		cfg.setProperty("hibernate.hbm2ddl.auto", "update");
+		cfg.setProperty("hibernate.ejb.naming_strategy", "org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy");
+		return cfg;
+	}
 
 	public static void main(String[] args) {
-		AnnotationConfigApplicationContext acac = new AnnotationConfigApplicationContext(RepositoryConfiguration.class);
-		LocalContainerEntityManagerFactoryBean lcemfb = acac.getBean(LocalContainerEntityManagerFactoryBean.class);
-		final Properties prop = new Properties();
-		prop.put(AvailableSettings.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
-
-		final PersistenceUnitInfo info = lcemfb.getPersistenceUnitInfo();
-		final PersistenceUnitInfoDescriptor puid = new PersistenceUnitInfoDescriptor(info);
-		final EntityManagerFactoryBuilderImpl emfbi = new EntityManagerFactoryBuilderImpl(puid, prop);
-
-		final ServiceRegistry serviceRegistry = emfbi.buildServiceRegistry();
-		final Configuration configuration = emfbi.buildHibernateConfiguration(serviceRegistry);
-
-		final SchemaExport schemaExport = new SchemaExport(serviceRegistry, configuration);
+		final SchemaExport schemaExport = new SchemaExport(getConfiguration());
 		schemaExport.setFormat(true);
 		schemaExport.setDelimiter(";");
+		schemaExport.setOutputFile("trello.sql");
 
 		schemaExport.execute(true, false, false, true);
-		acac.close();
 	}
 }

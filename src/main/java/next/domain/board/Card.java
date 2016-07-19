@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
-@Entity(name = "card")
+@Entity
 @Data
 public class Card {
 	@Id

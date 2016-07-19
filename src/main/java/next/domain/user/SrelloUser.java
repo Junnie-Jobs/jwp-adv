@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Entity
 @DiscriminatorValue(value = UserType.Values.SRELLO)
 public class SrelloUser extends User {
-	@Column(name = "password")
+	@Column
 	private String password;
 	
 	@Transient
