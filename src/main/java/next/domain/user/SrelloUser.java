@@ -1,6 +1,5 @@
 package next.domain.user;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -13,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @DiscriminatorValue(value = UserType.Values.SRELLO)
 @JsonTypeName(UserType.Values.SRELLO)
 public class SrelloUser extends User {
-	@Column
 	private String password;
 	
 	@Transient
@@ -25,6 +23,10 @@ public class SrelloUser extends User {
 	public SrelloUser(String userId, String email, String password) {
 		super(userId, email);
 		this.password = password;
+	}
+	
+	public void setRawPassword(String rawPassword) {
+		this.rawPassword = rawPassword;
 	}
 	
 	public String getPassword() {

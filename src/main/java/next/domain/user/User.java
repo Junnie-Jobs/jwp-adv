@@ -36,9 +36,10 @@ public abstract class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@Column
+	@Column(nullable = false)
 	private String userId;
 	
+	@Column(nullable = false)
 	private String email;
 	
 	public User() {}

@@ -1,6 +1,5 @@
 package next.domain.user;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -10,10 +9,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @DiscriminatorValue(value = UserType.Values.GITHUB)
 @JsonTypeName(UserType.Values.GITHUB)
 public class GitHubUser extends User {
-	@Column(name = "name")
 	private String name;
 	
-	@Column
 	private String accessToken;
 
 	public GitHubUser() {

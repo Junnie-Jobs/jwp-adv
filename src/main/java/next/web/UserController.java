@@ -32,7 +32,7 @@ public class UserController {
 		LOGGER.debug("user : {}", user);
 		user.encodePassword(passwordEncoder);
 		userRepository.save(user);
-		return "redirect:/users/login";
+		return "redirect:/users/loginForm";
 	}
 	
 	@RequestMapping(value = "/loginForm", method = RequestMethod.GET)
