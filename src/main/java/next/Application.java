@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import next.domain.board.Board;
@@ -22,6 +23,7 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 	
+	@Profile("local")
 	@Bean
 	public CommandLineRunner demo(
 			SrelloUserRepository userRepository,
