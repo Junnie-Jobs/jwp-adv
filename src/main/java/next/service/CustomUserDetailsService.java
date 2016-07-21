@@ -31,6 +31,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 			throws UsernameNotFoundException {
 		LOGGER.debug("load username : {}", username);
 		next.domain.user.SrelloUser user = userRepository.findByUserId(username);
+		if (user == null) {
+			throw new UsernameNotFoundException(username + "은 존재하지 않는 사용자입니다.");
+		}
 		LOGGER.debug("loaded User : {}", user);
 		List<GrantedAuthority> authorities = buildUserAuthority();
 		return buildUserForAuthentication(user, authorities);
