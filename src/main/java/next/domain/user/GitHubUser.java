@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @DiscriminatorValue(value = UserType.Values.GITHUB)
 @JsonTypeName(UserType.Values.GITHUB)
 public class GitHubUser extends User {
+	private static final long serialVersionUID = 5403018272744408150L;
+
 	private String name;
 	
 	private String accessToken;

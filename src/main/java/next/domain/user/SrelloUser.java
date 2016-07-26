@@ -12,6 +12,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @DiscriminatorValue(value = UserType.Values.SRELLO)
 @JsonTypeName(UserType.Values.SRELLO)
 public class SrelloUser extends User {
+	private static final long serialVersionUID = -8726379427468310776L;
+
 	private String password;
 	
 	@Transient

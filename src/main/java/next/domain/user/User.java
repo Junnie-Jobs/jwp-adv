@@ -1,5 +1,7 @@
 package next.domain.user;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -29,7 +31,9 @@ import lombok.Data;
 	@Type(value = SrelloUser.class, name = UserType.Values.SRELLO),
 	@Type(value = GitHubUser.class, name = UserType.Values.GITHUB),
 })
-public abstract class User {
+public abstract class User implements Serializable {
+	private static final long serialVersionUID = 8216304454660739242L;
+
 	public static final GuestUser GUEST_USER = new GuestUser();
 	
 	@Id
@@ -53,6 +57,7 @@ public abstract class User {
 		return false;
 	}
 	
+	@SuppressWarnings("serial")
 	private static class GuestUser extends User {
 		@Override
 		public boolean isGuestUser() {
