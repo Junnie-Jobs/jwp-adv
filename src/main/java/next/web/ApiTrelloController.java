@@ -14,8 +14,8 @@ public class ApiTrelloController {
 	@RequestMapping("/servers/info")
 	public Map<String, Object> info(HttpServletRequest request) {
 		Map<String, Object> infos = Maps.newHashMap();
-		infos.put("ServerName", request.getServerName());
-		infos.put("Port", request.getServerPort());
+		infos.put("ServerName", request.getLocalName());
+		infos.put("Port", request.getLocalPort());
 		return infos;
 	}
 }
